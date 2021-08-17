@@ -18,7 +18,6 @@ export default class EmployeeList extends React.Component {
 
 	render() {
 		const { employees } = this.state;
-		console.log(employees);
 
 		const employeeUI = employees.map((employee) => (
 			<ul key={Math.random()}>

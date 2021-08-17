@@ -1,66 +1,63 @@
 import React from "react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-export default class EmployeeForm extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			firstName: "",
-			lastName: "",
-			email: "",
-		};
-	}
+const formInputData = [
+	{ type: "text", name: "firstName", label: "First Name" },
+	{ type: "text", name: "lastName", label: "Last Name" },
+	{ type: "email", name: "email", label: "email" },
+];
 
-	formHandler = (evt) => {
-		this.setState({
-			[evt.target.name]: evt.target.value,
-		});
-	};
+const schema = yup.object().shape({
+	firstName: yup.string().required(),
+	lastName: yup.string().required(),
+	email: yup.string().email().required(),
+});
 
-	submitHandler = async () => {
+const EmployeeForm = () => {
+	const onSubmit = async (data) => {
 		try {
 			await axios.post("http://localhost:3001/api/employees", {
-				firstName: this.state.firstName,
-				lastName: this.state.lastName,
-				email: this.state.email,
+				firstName: data.firstName,
+				lastName: data.lastName,
+				email: data.email,
 			});
 			alert("successful");
 		} catch (e) {
-			// statements
 			console.log(e);
 		}
 	};
 
-	render() {
-		const { firstName, lastName, email } = this.state;
-		return (
-			<div>
-				<form action="">
-					<h1>Add Employee</h1>
-					<input
-						type="text"
-						name="firstName"
-						placeholder="First Name"
-						value={firstName}
-						onChange={this.formHandler}
-					/>
-					<input
-						type="text"
-						name="lastName"
-						placeholder="Last Name"
-						value={lastName}
-						onChange={this.formHandler}
-					/>
-					<input
-						type="email"
-						name="email"
-						placeholder="Email"
-						value={email}
-						onChange={this.formHandler}
-					/>
-					<button onClick={this.submitHandler}>Submit</button>
-				</form>
-			</div>
-		);
-	}
-}
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
+
+	const inputUI = formInputData.map((data, key) => (
+		<div key={key}>
+			<input
+				type={data.type}
+				{...register(data.name)}
+				placeholder={data.label}
+			/>
+			<p>{errors[data.name]?.message}</p>
+		</div>
+	));
+
+	return (
+		<div>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<h1>Add Employee</h1>
+				{inputUI}
+				<input type="submit" />
+			</form>
+		</div>
+	);
+};
+
+export default EmployeeForm;

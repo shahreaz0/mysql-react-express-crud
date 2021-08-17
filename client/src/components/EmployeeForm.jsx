@@ -3,6 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import UploadCsv from "./UploadCsv";
 
 const formInputData = [
 	{ type: "text", name: "firstName", label: "First Name" },
@@ -56,6 +57,10 @@ const EmployeeForm = () => {
 				{inputUI}
 				<input type="submit" />
 			</form>
+			or
+			<br />
+			Add multiple users with csv file
+			<UploadCsv />
 		</div>
 	);
 };

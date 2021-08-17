@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const sequelize = require("./configs/db");
 const app = express();
+const fileUpload = require("./configs/multer");
 
 const Employee = require("./models/employee");
 //db
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// routes
 app.get("/", (req, res) => {
 	res.send("home");
 });
@@ -43,6 +45,10 @@ app.post("/api/employees", async (req, res) => {
 		// statements
 		console.log(e);
 	}
+});
+
+app.post("/api/upload", fileUpload, async (req, res) => {
+	console.log("files from axios", req.file);
 });
 
 const port = process.env.PORT || 3001;

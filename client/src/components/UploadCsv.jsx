@@ -18,7 +18,7 @@ const UploadCsv = (props) => {
 	return (
 		<div>
 			<form onSubmit={handleSubmit(fileUploadHandler)}>
-				<input type="file" {...register("csvFile")} />
+				<input type="file" {...register("csvFile")} accept=".csv" />
 				<input type="submit" />
 			</form>
 		</div>

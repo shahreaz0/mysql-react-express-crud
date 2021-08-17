@@ -16,12 +16,12 @@ const upload = multer({
 	limits: {
 		fileSize: 9000000,
 	},
-	// fileFilter(req, file, cb) {
-	// 	if (!file.originalname.match(/\.csv$/i)) {
-	// 		cb(new Error("File type not allowed."));
-	// 	}
-	// 	cb(null, true);
-	// },
+	fileFilter(req, file, cb) {
+		if (!file.originalname.match(/\.csv$/i)) {
+			cb(new Error("File type not allowed."));
+		}
+		cb(null, true);
+	},
 });
 
 const fileUpload = upload.single("csvFile");

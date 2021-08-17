@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 
 export default class App extends Component {
@@ -7,6 +8,7 @@ export default class App extends Component {
     this.state = {
       firstName: "",
       lastName: "",
+      email: "",
     };
   }
 
@@ -16,8 +18,22 @@ export default class App extends Component {
     });
   };
 
+  submitHandler = async () => {
+    try {
+      await axios.post("http://localhost:3001/api/employees", {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+      });
+      alert("successful");
+    } catch (e) {
+      // statements
+      console.log(e);
+    }
+  };
+
   render() {
-    const { firstName, lastName } = this.state;
+    const { firstName, lastName, email } = this.state;
     return (
       <div>
         <h1>Add Employee</h1>
@@ -35,6 +51,14 @@ export default class App extends Component {
           value={lastName}
           onChange={this.formHandler}
         />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={this.formHandler}
+        />
+        <button onClick={this.submitHandler}>Submit</button>
       </div>
     );
   }

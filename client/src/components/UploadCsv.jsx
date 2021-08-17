@@ -1,44 +1,28 @@
 import React from "react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
-class UploadCsv extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			file: null,
-		};
-	}
+const UploadCsv = (props) => {
+	const { register, handleSubmit } = useForm();
 
-	onFormSubmit = (e) => {
-		e.preventDefault();
-		const formData = new FormData();
-		formData.append("csvFile", this.state.file);
-		const config = {
-			headers: {
-				"content-type": "multipart/form-data",
-			},
-		};
-		axios
-			.post("http://localhost:3001/api/upload", formData, config)
-			.then((response) => {
-				alert("The file is successfully uploaded");
-			})
-			.catch((error) => {});
+	const fileUploadHandler = async (data) => {
+		try {
+			const formData = new FormData();
+			formData.append("csvFile", data.csvFile[0]);
+
+			await axios.post("http://localhost:3001/api/upload", formData);
+		} catch (error) {
+			console.log(error);
+		}
 	};
-
-	onChange = (e) => {
-		this.setState({ file: e.target.files[0] });
-	};
-
-	render() {
-		return (
-			<form onSubmit={this.onFormSubmit}>
-				<h1>File Upload</h1>
-				<input type="file" name="csvFile" onChange={this.onChange} />
-				<button type="submit">Upload</button>
+	return (
+		<div>
+			<form onSubmit={handleSubmit(fileUploadHandler)}>
+				<input type="file" {...register("csvFile")} />
+				<input type="submit" />
 			</form>
-		);
-	}
-}
+		</div>
+	);
+};
 
 export default UploadCsv;

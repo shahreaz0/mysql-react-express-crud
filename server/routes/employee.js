@@ -66,23 +66,15 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 			})
 			.on("end", () => {
 				//Save employee to MySQL database
-				// Employee.bulkCreate(employees).then(() => {
-				// 	const result = {
-				// 		status: "ok",
-				// 		filename: req.file.originalname,
-				// 		message: "Upload Successfully!",
-				// 	};
+				Employee.bulkCreate(employees).then(() => {
+					const result = {
+						status: "ok",
+						filename: req.file.originalname,
+						message: "Upload Successfully!",
+					};
 
-				// 	res.json(result);
-				// });
-
-				// const filtered = employees.filter(
-				// 	(emp) =>
-				// 		emp.firstName !== "" &&
-				// 		emp.lastName !== "" &&
-				// 		emp.email !== ""
-				// );
-
+					res.json(result);
+				});
 				res.json(employees);
 				fs.emptyDirSync(path.join("uploads"));
 			});

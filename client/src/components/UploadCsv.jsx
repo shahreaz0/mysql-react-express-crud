@@ -11,6 +11,7 @@ const UploadCsv = (props) => {
 			formData.append("csvFile", data.csvFile[0]);
 
 			await axios.post("http://localhost:3001/api/upload", formData);
+			alert("successful");
 		} catch (error) {
 			console.log(error);
 		}

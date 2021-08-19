@@ -1,12 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = (props) => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed">
 			<div className="container-fluid">
-				<NavLink className="navbar-brand" to="/">
-					HRman
+				<NavLink className="navbar-brand barlow-font-600" to="/">
+					HRMAN
 				</NavLink>
 				<button
 					className="navbar-toggler"

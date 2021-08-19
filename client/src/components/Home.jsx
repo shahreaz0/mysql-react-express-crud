@@ -8,12 +8,14 @@ const Home = (props) => {
 		<div className="Home">
 			<div className="row m-0">
 				<div className="left-bar col-md-4 bg-dark">
-					<h1 className="left-bar-text">Add Employee</h1>
+					<h1 className="left-bar-text barlow-font-600">
+						Add Employee
+					</h1>
 				</div>
 
 				<div className="col-md-5 d-flex mx-auto flex-column justify-content-center margin">
 					<EmployeeForm />
-					<h3 className="text-center my-3">OR</h3>
+					<h3 className="text-center my-3 barlow-font-500">OR</h3>
 					<p className="text-center m-0">
 						Add multiple employees with CSV file
 					</p>

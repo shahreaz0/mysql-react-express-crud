@@ -13,7 +13,7 @@
 	color: white;
 	text-transform: uppercase;
 	font-weight: 700;
-	font-size: 2.5rem;
+	font-size: 4rem;
 	letter-spacing: 4px;
 }
 
@@ -32,6 +32,16 @@
 
 .margin {
 	margin-top: 4rem;
+}
+
+.barlow-font-500 {
+	font-family: "Barlow Condensed", sans-serif;
+	font-weight: 500;
+}
+
+.barlow-font-600 {
+	font-family: "Barlow Condensed", sans-serif;
+	font-weight: 600;
 }
 
 @media only screen and (max-width: 769px) {

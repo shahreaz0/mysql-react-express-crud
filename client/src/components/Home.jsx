@@ -11,11 +11,11 @@ const Home = (props) => {
 					<h1 className="left-bar-text">Add Employee</h1>
 				</div>
 
-				<div className="col-md-5 d-flex my-5 mx-auto flex-column justify-content-center">
+				<div className="col-md-5 d-flex mx-auto flex-column justify-content-center margin">
 					<EmployeeForm />
 					<h3 className="text-center my-3">OR</h3>
 					<p className="text-center m-0">
-						Add multiple users with CSV file
+						Add multiple employees with CSV file
 					</p>
 					<p className="warning text-center m-0">
 						Only CSV file is allowed

@@ -1,9 +1,5 @@
-.Home {
-	height: 90vh;
-}
-
 .Home .row {
-	height: 90vh;
+	height: 100vh;
 }
 
 .left-bar {
@@ -25,4 +21,24 @@
 	font-weight: 300;
 	color: tomato;
 	font-size: 0.8rem;
+}
+
+.fixed {
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: 0;
+}
+
+.margin {
+	margin-top: 4rem;
+}
+
+@media only screen and (max-width: 769px) {
+	.margin {
+		margin-top: 1.5rem !important;
+	}
+	.fixed {
+		position: relative;
+	}
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "./EmployeeList.css";
 
 export default class EmployeeList extends React.Component {
 	constructor(props) {
@@ -30,15 +31,13 @@ export default class EmployeeList extends React.Component {
 		// {employeeUI}
 
 		return (
-			<div>
-				<div className="row m-0">
-					<div className="left-bar col-md-4 bg-dark">
-						<h1 className="left-bar-text">All Employees</h1>
-					</div>
+			<div className="EmployeeList row m-0">
+				<div className="left-bar col-md-4 bg-dark">
+					<h1 className="left-bar-text">All Employees</h1>
+				</div>
 
-					<div className="col d-flex m-3 flex-column justify-content-center">
-						{employeeUI}
-					</div>
+				<div className="col d-flex flex-column justify-content-center margin">
+					{employeeUI}
 				</div>
 			</div>
 		);

@@ -21,7 +21,7 @@ const UploadCsv = (props) => {
 				labelFileProcessingError="Only CSV file is allowed"
 				labelFileProcessingComplete="Uploaded data to the database"
 				dropOnPage={true}
-				labelIdle='Drag & Drop .csv files or <span class="filepond--label-action">Browse</span>'
+				labelIdle='Drag & Drop .csv file or <span class="filepond--label-action">Browse</span>'
 			/>
 		</div>
 	);

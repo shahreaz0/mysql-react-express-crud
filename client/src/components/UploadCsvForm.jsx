@@ -18,6 +18,7 @@ const UploadCsv = (props) => {
 				allowMultiple={false}
 				server="http://localhost:3001/api/upload"
 				name="csvFile"
+				labelFileProcessingError="Only CSV file is allowed"
 				labelFileProcessingComplete="Uploaded data to the database"
 				dropOnPage={true}
 				labelIdle='Drag & Drop .csv files or <span class="filepond--label-action">Browse</span>'

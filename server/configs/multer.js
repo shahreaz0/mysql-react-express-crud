@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs-extra");
 
 // multer config
 const storage = multer.diskStorage({
@@ -17,7 +18,8 @@ const upload = multer({
 		fileSize: 9000000,
 	},
 	fileFilter(req, file, cb) {
-		if (!file.originalname.match(/\.csv$/i)) {
+		if (!file.originalname.match(/.csv$/i)) {
+			fs.emptyDirSync(path.join("uploads"));
 			cb(new Error("File type not allowed."));
 		}
 		cb(null, true);

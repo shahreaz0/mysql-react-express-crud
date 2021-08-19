@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios";
 import "./EmployeeList.css";
 import _ from "lodash";
-const employeePerPage = 5;
+import { Route, Link } from "react-router-dom";
+import MailForm from "./MailForm";
 
+const employeePerPage = 5;
 export default class EmployeeList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,6 +13,9 @@ export default class EmployeeList extends React.Component {
 			employees: [],
 			paginate: [],
 			currentPage: 1,
+			allEmails: [],
+			checked: false,
+			showEmailForm: false,
 		};
 	}
 
@@ -34,8 +39,35 @@ export default class EmployeeList extends React.Component {
 		});
 	};
 
+	checkboxHandler = (e) => {
+		console.log(e.target.value);
+		const { value, checked } = e.target;
+
+		if (checked) {
+			this.setState((prevState) => {
+				return {
+					allEmails: [...prevState.allEmails, value],
+				};
+			});
+		} else {
+			this.setState((prevState) => {
+				return {
+					allEmails: prevState.allEmails.filter((e) => e !== value),
+				};
+			});
+		}
+	};
+
+	sendEmailHandler = (e) => {
+		e.preventDefault();
+		this.setState({
+			showEmailForm: true,
+		});
+	};
+
 	render() {
-		const { employees, paginate, currentPage } = this.state;
+		const { employees, paginate, currentPage, showEmailForm, allEmails } =
+			this.state;
 
 		const pageCount = employees
 			? Math.ceil(employees.length / employeePerPage)
@@ -44,71 +76,81 @@ export default class EmployeeList extends React.Component {
 		if (pageCount === 1) return null;
 		const pages = _.range(1, pageCount + 1);
 
+		const employeesUI = (
+			<div>
+				{!employees ? (
+					"No employee on the list"
+				) : (
+					<div className="table-responsive">
+						<table className="table table-hover">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>Email</th>
+									<th>Send Email</th>
+								</tr>
+							</thead>
+							<tbody>
+								{paginate.map((employee, key) => (
+									<tr key={key}>
+										<td>{employee.id}</td>
+										<td>{employee.firstName}</td>
+										<td>{employee.lastName}</td>
+										<td>{employee.email}</td>
+										<td>
+											<div className="form-check">
+												<input
+													className="form-check-input"
+													type="checkbox"
+													value={employee.email}
+													onChange={this.checkboxHandler}
+													id="flexCheckDefault"
+												/>
+											</div>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				)}
+				<nav className="d-flex justify-content-center">
+					<ul className="pagination">
+						{pages.map((page, key) => (
+							<li
+								key={key}
+								className={
+									page === currentPage
+										? "page-item active"
+										: "page-item"
+								}
+							>
+								<a
+									className="page-link"
+									onClick={() => this.pagination(page)}
+								>
+									{page}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+				<button className="btn btn-dark" onClick={this.sendEmailHandler}>
+					Send mail
+				</button>
+			</div>
+		);
+
 		return (
 			<div className="EmployeeList row m-0">
 				<div className="left-bar col-md-4 bg-dark">
 					<h1 className="left-bar-text barlow-font-600">All Employees</h1>
 				</div>
-
 				<div className="col d-flex flex-column justify-content-center margin">
-					{!employees ? (
-						"No employee on the list"
-					) : (
-						<div className="table-responsive">
-							<table className="table table-hover">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Email</th>
-										<th>Send Email</th>
-									</tr>
-								</thead>
-								<tbody>
-									{paginate.map((employee, key) => (
-										<tr key={key}>
-											<td>{employee.id}</td>
-											<td>{employee.firstName}</td>
-											<td>{employee.lastName}</td>
-											<td>{employee.email}</td>
-											<td>
-												<div className="form-check">
-													<input
-														className="form-check-input"
-														type="checkbox"
-														value=""
-														id="flexCheckDefault"
-													/>
-												</div>
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
-					)}
-					<nav className="d-flex justify-content-center">
-						<ul className="pagination">
-							{pages.map((page, key) => (
-								<li
-									key={key}
-									className={
-										page === currentPage
-											? "page-item active"
-											: "page-item"
-									}
-								>
-									<a
-										className="page-link"
-										onClick={() => this.pagination(page)}
-									>
-										{page}
-									</a>
-								</li>
-							))}
-						</ul>
-					</nav>
+					{employeesUI}
+					{showEmailForm && <MailForm emails={allEmails} />}
 				</div>
 			</div>
 		);

@@ -7,12 +7,14 @@ import Navbar from "./components/Navbar";
 
 const App = (props) => {
   return (
-    <div>
+    <div className="App">
       <Navbar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/employees" component={EmployeeList} />
-      </Switch>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/employees" component={EmployeeList} />
+        </Switch>
+      </div>
     </div>
   );
 };

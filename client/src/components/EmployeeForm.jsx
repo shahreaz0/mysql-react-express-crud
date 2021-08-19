@@ -3,11 +3,12 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import "./EmployeeForm.css";
 
 const formInputData = [
 	{ type: "text", name: "firstName", label: "First Name" },
 	{ type: "text", name: "lastName", label: "Last Name" },
-	{ type: "email", name: "email", label: "email" },
+	{ type: "email", name: "email", label: "Email" },
 ];
 
 const schema = yup.object().shape({
@@ -39,22 +40,27 @@ const EmployeeForm = () => {
 	});
 
 	const inputUI = formInputData.map((data, key) => (
-		<div key={key}>
+		<div className="col-md-12" key={key}>
+			<label htmlFor="firstName" className="form-label">
+				{data.label}
+			</label>
 			<input
 				type={data.type}
+				className="form-control"
+				id="firstName"
 				{...register(data.name)}
-				placeholder={data.label}
 			/>
-			<p>{errors[data.name]?.message}</p>
+			<div className="my-2">
+				<p className="error-msg">{errors[data.name]?.message}</p>
+			</div>
 		</div>
 	));
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<h1>Add Employee</h1>
+			<form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
 				{inputUI}
-				<input type="submit" />
+				<input type="submit" className="btn btn-dark" />
 			</form>
 		</div>
 	);

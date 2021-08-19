@@ -1,27 +1,27 @@
-import React from "react";
-import axios from "axios";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+
+import { FilePond, registerPlugin } from "react-filepond";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+registerPlugin(FilePondPluginFileValidateType);
+
+// Import FilePond styles
+import "filepond/dist/filepond.min.css";
 
 const UploadCsv = (props) => {
-	const { register, handleSubmit } = useForm();
+	const [csvFile, setCsvFile] = useState([]);
 
-	const fileUploadHandler = async (data) => {
-		try {
-			const formData = new FormData();
-			formData.append("csvFile", data.csvFile[0]);
-
-			await axios.post("http://localhost:3001/api/upload", formData);
-			alert("successful");
-		} catch (error) {
-			console.log(error);
-		}
-	};
 	return (
-		<div>
-			<form onSubmit={handleSubmit(fileUploadHandler)}>
-				<input type="file" {...register("csvFile")} accept=".csv" />
-				<input type="submit" />
-			</form>
+		<div className="my-3">
+			<FilePond
+				files={csvFile}
+				onupdatefiles={setCsvFile}
+				allowMultiple={false}
+				server="http://localhost:3001/api/upload"
+				name="csvFile"
+				labelFileProcessingComplete="Uploaded data to the database"
+				dropOnPage={true}
+				labelIdle='Drag & Drop .csv files or <span class="filepond--label-action">Browse</span>'
+			/>
 		</div>
 	);
 };

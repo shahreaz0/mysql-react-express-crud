@@ -1,0 +1,28 @@
+.Home {
+	height: 90vh;
+}
+
+.Home .row {
+	height: 90vh;
+}
+
+.left-bar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+}
+
+.left-bar-text {
+	color: white;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 2.5rem;
+	letter-spacing: 4px;
+}
+
+.warning {
+	font-weight: 300;
+	color: tomato;
+	font-size: 0.8rem;
+}

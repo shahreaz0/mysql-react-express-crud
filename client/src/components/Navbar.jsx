@@ -24,14 +24,9 @@ const Navbar = (props) => {
 					id="navbarNavAltMarkup"
 				>
 					<div className="navbar-nav">
-						<NavLink
-							className="nav-link"
-							aria-current="page"
-							to="/"
-						>
+						<NavLink className="nav-link" to="/">
 							Home
 						</NavLink>
-
 						<NavLink className="nav-link" to="/employees">
 							All Employees
 						</NavLink>

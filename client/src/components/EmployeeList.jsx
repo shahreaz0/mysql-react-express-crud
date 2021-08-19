@@ -27,7 +27,20 @@ export default class EmployeeList extends React.Component {
 				<li>{employee.email}</li>
 			</ul>
 		));
+		// {employeeUI}
 
-		return <div>{employeeUI}</div>;
+		return (
+			<div>
+				<div className="row m-0">
+					<div className="left-bar col-md-4 bg-dark">
+						<h1 className="left-bar-text">All Employees</h1>
+					</div>
+
+					<div className="col d-flex m-3 flex-column justify-content-center">
+						{employeeUI}
+					</div>
+				</div>
+			</div>
+		);
 	}
 }

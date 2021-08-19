@@ -75,7 +75,6 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 
 					res.json(result);
 				});
-				res.json(employees);
 				fs.emptyDirSync(path.join("uploads"));
 			});
 	} catch (error) {

@@ -15,7 +15,6 @@ export default class EmployeeList extends React.Component {
 			currentPage: 1,
 			allEmails: [],
 			checked: false,
-			showEmailForm: false,
 		};
 	}
 
@@ -58,16 +57,8 @@ export default class EmployeeList extends React.Component {
 		}
 	};
 
-	sendEmailHandler = (e) => {
-		e.preventDefault();
-		this.setState({
-			showEmailForm: true,
-		});
-	};
-
 	render() {
-		const { employees, paginate, currentPage, showEmailForm, allEmails } =
-			this.state;
+		const { employees, paginate, currentPage, allEmails } = this.state;
 
 		const pageCount = employees
 			? Math.ceil(employees.length / employeePerPage)
@@ -137,9 +128,6 @@ export default class EmployeeList extends React.Component {
 						))}
 					</ul>
 				</nav>
-				<button className="btn btn-dark" onClick={this.sendEmailHandler}>
-					Send mail
-				</button>
 			</div>
 		);
 
@@ -148,9 +136,13 @@ export default class EmployeeList extends React.Component {
 				<div className="left-bar col-md-4 bg-dark">
 					<h1 className="left-bar-text barlow-font-600">All Employees</h1>
 				</div>
-				<div className="col d-flex flex-column justify-content-center margin">
+				<div className="col d-flex flex-column margin">
 					{employeesUI}
-					{showEmailForm && <MailForm emails={allEmails} />}
+					{allEmails.length === 0 ? (
+						<p className="mt-3">No employee selected</p>
+					) : (
+						<MailForm emails={allEmails} />
+					)}
 				</div>
 			</div>
 		);

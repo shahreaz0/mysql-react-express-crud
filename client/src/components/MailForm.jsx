@@ -33,7 +33,7 @@ const MailForm = (props) => {
 	});
 
 	return (
-		<div className="my-5">
+		<div>
 			<form onSubmit={handleSubmit(onSubmitForm)} className="mx-auto">
 				<div className="col-md-12">
 					<label htmlFor="subject" className="form-label">
@@ -41,7 +41,7 @@ const MailForm = (props) => {
 					</label>
 					<input
 						type="subject"
-						className="form-control"
+						className="form-control form-control-sm"
 						id="subject"
 						{...register("subject")}
 					/>
@@ -55,7 +55,7 @@ const MailForm = (props) => {
 						Body
 					</label>
 					<textarea
-						className="form-control"
+						className="form-control form-control-sm"
 						id="body"
 						{...register("body")}
 					></textarea>

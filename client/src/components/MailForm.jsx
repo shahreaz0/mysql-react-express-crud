@@ -64,7 +64,7 @@ const MailForm = (props) => {
 						{...register("body")}
 					></textarea>
 					<div className="my-2">
-						<p className="error-msg">{errors["body"]?.message}.</p>
+						<p className="error-msg">{errors["body"]?.message}</p>
 					</div>
 				</div>
 

@@ -55,7 +55,7 @@ const EmployeeForm = () => {
 				{...register(data.name)}
 			/>
 			<div className="my-1">
-				<p className="error-msg">{errors[data.name]?.message}.</p>
+				<p className="error-msg">{errors[data.name]?.message}</p>
 			</div>
 		</div>
 	));

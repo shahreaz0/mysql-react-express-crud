@@ -7,7 +7,7 @@ const Navbar = () => {
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed">
 			<div className="container-fluid">
 				<NavLink className="navbar-brand barlow-font-600" to="/">
-					HRMAN
+					WORKMAN
 				</NavLink>
 				<button
 					className="navbar-toggler"

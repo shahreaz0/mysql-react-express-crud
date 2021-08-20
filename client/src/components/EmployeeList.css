@@ -11,6 +11,23 @@
 	cursor: pointer;
 }
 
+.page-link {
+	color: #212529;
+	border: #212529 1px solid;
+}
+
+.page-link:hover {
+	color: #fff;
+	background-color: #212529;
+	border: #212529 1px solid;
+}
+
+.page-item.active .page-link {
+	background-color: #212529;
+	color: #fff;
+	border: #212529 1px solid;
+}
+
 @media only screen and (max-width: 910px) {
 	.EmployeeList .left-bar {
 		width: 100%;

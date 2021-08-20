@@ -3,6 +3,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const csv = require("fast-csv");
 const validator = require("validator");
+const nodemailer = require("nodemailer");
 //models
 const Employee = require("../models/employee");
 //config middleware
@@ -86,6 +87,34 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 		};
 		res.json(result);
 	}
+});
+
+router.post("/api/employees/sendmail", async (req, res) => {
+	const { subject, body, emails } = req.body;
+
+	if (!subject && !body) return res.send("No subject and body");
+
+	const emailsString = emails.join(",");
+	const transport = nodemailer.createTransport({
+		host: process.env.MT_HOST,
+		port: process.env.MT_PORT,
+		auth: {
+			user: process.env.MT_USERNAME,
+			pass: process.env.MT_PASSWORD,
+		},
+	});
+
+	await transport.sendMail({
+		from: process.env.MAIL_FROM,
+		to: emailsString,
+		subject: "test email",
+		html: `<div>
+			<h1>${subject}</h1>
+			<p>${body}</p>
+		</div>`,
+	});
+
+	res.send("successfully send email");
 });
 
 module.exports = router;

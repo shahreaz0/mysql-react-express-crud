@@ -11,17 +11,18 @@ const schema = yup.object().shape({
 
 const MailForm = (props) => {
 	const onSubmitForm = async (data) => {
-		console.log("dada", data);
-		// try {
-		// 	await axios.post("http://localhost:3001/api/employees", {
-		// 		firstName: data.firstName,
-		// 		lastName: data.lastName,
-		// 		email: data.email,
-		// 	});
-		// 	alert("successful");
-		// } catch (e) {
-		// 	console.log(e);
-		// }
+		console.log(data);
+		try {
+			await axios.post("http://localhost:3001/api/employees/sendmail", {
+				subject: data.subject,
+				body: data.body,
+				emails: props.emails,
+			});
+			alert("successfully sent email. Click Ok to continue");
+		} catch (e) {
+			alert("Error happend. Retry.");
+			console.log(e);
+		}
 	};
 
 	const {
@@ -64,7 +65,7 @@ const MailForm = (props) => {
 					</div>
 				</div>
 
-				<input type="submit" className="btn btn-dark" />
+				<input type="submit" className="btn btn-dark btn-sm" />
 			</form>
 		</div>
 	);

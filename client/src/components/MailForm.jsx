@@ -11,7 +11,6 @@ const schema = yup.object().shape({
 
 const MailForm = (props) => {
 	const onSubmitForm = async (data) => {
-		console.log(data);
 		try {
 			await axios.post("http://localhost:3001/api/employees/sendmail", {
 				subject: data.subject,

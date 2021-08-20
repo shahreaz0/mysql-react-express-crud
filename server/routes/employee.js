@@ -13,6 +13,7 @@ const fileUpload = require("../configs/multer");
 router.get("/api/employees", async (req, res) => {
 	try {
 		const all = await Employee.findAll();
+		console.log(all);
 		res.send(all);
 	} catch (e) {
 		res.send(e);

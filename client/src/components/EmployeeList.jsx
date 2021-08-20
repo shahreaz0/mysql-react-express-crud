@@ -19,11 +19,17 @@ export default class EmployeeList extends React.Component {
 	}
 
 	async componentDidMount() {
-		const { data } = await axios.get("http://localhost:3001/api/employees");
-		this.setState({
-			employees: data,
-			paginate: _(data).slice(0).take(employeePerPage).value(),
-		});
+		try {
+			const { data } = await axios.get(
+				"http://localhost:3001/api/employees"
+			);
+			this.setState({
+				employees: data,
+				paginate: _(data).slice(0).take(employeePerPage).value(),
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	pagination = (pageNumber) => {
@@ -96,7 +102,9 @@ export default class EmployeeList extends React.Component {
 													className="form-check-input"
 													type="checkbox"
 													value={employee.email}
-													onChange={this.checkboxHandler}
+													onChange={
+														this.checkboxHandler
+													}
 													id="flexCheckDefault"
 												/>
 											</div>
@@ -134,11 +142,15 @@ export default class EmployeeList extends React.Component {
 		return (
 			<div className="EmployeeList row m-0">
 				<div className="left-bar col-md-4 bg-dark">
-					<h1 className="left-bar-text barlow-font-600">All Employees</h1>
+					<h1 className="left-bar-text barlow-font-600">
+						All Employees
+					</h1>
 				</div>
 				<div className="col d-flex flex-column margin">
 					{employeesUI}
-					{allEmails.length === 0 ? (
+					{employees.length === 0 ? (
+						"No employees."
+					) : allEmails.length === 0 ? (
 						<p className="mt-3">No employee selected</p>
 					) : (
 						<MailForm emails={allEmails} />

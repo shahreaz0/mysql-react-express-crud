@@ -11,7 +11,7 @@
 	cursor: pointer;
 }
 
-@media only screen and (max-width: 831px) {
+@media only screen and (max-width: 910px) {
 	.EmployeeList .left-bar {
 		width: 100%;
 	}

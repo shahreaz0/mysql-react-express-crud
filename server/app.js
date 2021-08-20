@@ -9,6 +9,10 @@ sequelize
 	.then((res) => console.log("Database connected!"))
 	.catch((err) => console.log(err));
 
+//add fake data to the database
+addFakeData = require("./configs/faker");
+addFakeData();
+
 // express configs
 const app = express();
 app.use(cors());

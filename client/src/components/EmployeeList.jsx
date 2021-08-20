@@ -2,10 +2,13 @@ import React from "react";
 import axios from "axios";
 import "./EmployeeList.css";
 import _ from "lodash";
-import { Route, Link } from "react-router-dom";
+
+//components
 import MailForm from "./MailForm";
 
+// global var
 const employeePerPage = 5;
+
 export default class EmployeeList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -27,8 +30,8 @@ export default class EmployeeList extends React.Component {
 				employees: data,
 				paginate: _(data).slice(0).take(employeePerPage).value(),
 			});
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
@@ -44,9 +47,8 @@ export default class EmployeeList extends React.Component {
 		});
 	};
 
-	checkboxHandler = (e) => {
-		console.log(e.target.value);
-		const { value, checked } = e.target;
+	checkboxHandler = (event) => {
+		const { value, checked } = event.target;
 
 		if (checked) {
 			this.setState((prevState) => {
@@ -75,46 +77,40 @@ export default class EmployeeList extends React.Component {
 
 		const employeesUI = (
 			<div>
-				{!employees ? (
-					"No employee on the list"
-				) : (
-					<div className="table-responsive">
-						<table className="table table-hover">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>First Name</th>
-									<th>Last Name</th>
-									<th>Email</th>
-									<th>Send Email</th>
+				<div className="table-responsive">
+					<table className="table table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Email</th>
+								<th>Check</th>
+							</tr>
+						</thead>
+						<tbody>
+							{paginate.map((employee, key) => (
+								<tr key={key}>
+									<td>{employee.id}</td>
+									<td>{employee.firstName}</td>
+									<td>{employee.lastName}</td>
+									<td>{employee.email}</td>
+									<td>
+										<div className="form-check">
+											<input
+												className="form-check-input"
+												type="checkbox"
+												value={employee.email}
+												onChange={this.checkboxHandler}
+												id="flexCheckDefault"
+											/>
+										</div>
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-								{paginate.map((employee, key) => (
-									<tr key={key}>
-										<td>{employee.id}</td>
-										<td>{employee.firstName}</td>
-										<td>{employee.lastName}</td>
-										<td>{employee.email}</td>
-										<td>
-											<div className="form-check">
-												<input
-													className="form-check-input"
-													type="checkbox"
-													value={employee.email}
-													onChange={
-														this.checkboxHandler
-													}
-													id="flexCheckDefault"
-												/>
-											</div>
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-				)}
+							))}
+						</tbody>
+					</table>
+				</div>
 				<nav className="d-flex justify-content-center">
 					<ul className="pagination">
 						{pages.map((page, key) => (
@@ -149,9 +145,11 @@ export default class EmployeeList extends React.Component {
 				<div className="col d-flex flex-column margin">
 					{employeesUI}
 					{employees.length === 0 ? (
-						"No employees."
+						"No employees on the database."
 					) : allEmails.length === 0 ? (
-						<p className="mt-3">No employee selected</p>
+						<p className="mt-3">
+							No employee checked. Check for send email.
+						</p>
 					) : (
 						<MailForm emails={allEmails} />
 					)}

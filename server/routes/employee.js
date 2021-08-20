@@ -12,11 +12,10 @@ const fileUpload = require("../configs/multer");
 //routes
 router.get("/api/employees", async (req, res) => {
 	try {
-		const all = await Employee.findAll();
-		console.log(all);
-		res.send(all);
-	} catch (e) {
-		res.send(e);
+		const employees = await Employee.findAll();
+		res.send(employees);
+	} catch (error) {
+		res.send(error);
 	}
 });
 
@@ -30,8 +29,8 @@ router.post("/api/employees", async (req, res) => {
 			email,
 		});
 		res.send(employee);
-	} catch (e) {
-		console.log(e);
+	} catch (error) {
+		console.log(error);
 	}
 });
 
@@ -64,10 +63,9 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 					validator.isEmail(newRow.email)
 				)
 					employees.push(newRow);
-				// console.log(row);
 			})
 			.on("end", () => {
-				//Save employee to MySQL database
+				// save employee to MySQL database
 				Employee.bulkCreate(employees).then(() => {
 					const result = {
 						status: "ok",
@@ -105,17 +103,21 @@ router.post("/api/employees/sendmail", async (req, res) => {
 		},
 	});
 
-	await transport.sendMail({
-		from: process.env.MAIL_FROM,
-		to: emailsString,
-		subject: "test email",
-		html: `<div>
+	try {
+		await transport.sendMail({
+			from: process.env.MAIL_FROM,
+			to: emailsString,
+			subject: "test email",
+			html: `<div>
 			<h1>${subject}</h1>
 			<p>${body}</p>
 		</div>`,
-	});
-
-	res.send("successfully send email");
+		});
+		res.send("successfully send email");
+	} catch (error) {
+		console.log(error);
+		res.send(error);
+	}
 });
 
 module.exports = router;

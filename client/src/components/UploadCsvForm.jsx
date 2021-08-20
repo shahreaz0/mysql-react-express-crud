@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-
 import { FilePond, registerPlugin } from "react-filepond";
-
-// Import FilePond styles
 import "filepond/dist/filepond.min.css";
 
-const UploadCsv = (props) => {
+const UploadCsv = () => {
+	// hook
 	const [csvFile, setCsvFile] = useState([]);
 
 	return (

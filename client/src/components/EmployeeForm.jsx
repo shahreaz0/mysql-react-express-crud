@@ -5,12 +5,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./EmployeeForm.css";
 
+// form data
 const formInputData = [
 	{ type: "text", name: "firstName", label: "First Name" },
 	{ type: "text", name: "lastName", label: "Last Name" },
 	{ type: "email", name: "email", label: "Email" },
 ];
 
+// error validation schema
 const schema = yup.object().shape({
 	firstName: yup.string().required(),
 	lastName: yup.string().required(),
@@ -25,12 +27,14 @@ const EmployeeForm = () => {
 				lastName: data.lastName,
 				email: data.email,
 			});
-			alert("successful");
-		} catch (e) {
-			console.log(e);
+			alert("Successfully Added to the database. Click OK to continue.");
+		} catch (error) {
+			console.log(error);
+			alert("Error happend. Try Again.");
 		}
 	};
 
+	// hooks
 	const {
 		register,
 		formState: { errors },
@@ -50,8 +54,8 @@ const EmployeeForm = () => {
 				id="firstName"
 				{...register(data.name)}
 			/>
-			<div className="my-2">
-				<p className="error-msg">{errors[data.name]?.message}</p>
+			<div className="my-1">
+				<p className="error-msg">{errors[data.name]?.message}.</p>
 			</div>
 		</div>
 	));

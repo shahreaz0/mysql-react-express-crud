@@ -1,7 +1,9 @@
 import React from "react";
+import "./Home.css";
+
+// components
 import EmployeeForm from "./EmployeeForm";
 import UploadCsvForm from "./UploadCsvForm";
-import "./Home.css";
 
 const Home = (props) => {
 	return (

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+// mail form validation schema
 const schema = yup.object().shape({
 	subject: yup.string().required(),
 	body: yup.string().required(),
@@ -18,12 +19,13 @@ const MailForm = (props) => {
 				emails: props.emails,
 			});
 			alert("successfully sent email. Click Ok to continue");
-		} catch (e) {
-			alert("Error happend. Retry.");
-			console.log(e);
+		} catch (error) {
+			alert("Error happend. Try Again.");
+			console.log(error);
 		}
 	};
 
+	// hook
 	const {
 		register,
 		formState: { errors },
@@ -46,7 +48,9 @@ const MailForm = (props) => {
 						{...register("subject")}
 					/>
 					<div className="my-2">
-						<p className="error-msg">{errors["subject"]?.message}</p>
+						<p className="error-msg">
+							{errors["subject"]?.message}
+						</p>
 					</div>
 				</div>
 
@@ -60,7 +64,7 @@ const MailForm = (props) => {
 						{...register("body")}
 					></textarea>
 					<div className="my-2">
-						<p className="error-msg">{errors["body"]?.message}</p>
+						<p className="error-msg">{errors["body"]?.message}.</p>
 					</div>
 				</div>
 

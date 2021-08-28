@@ -1,13 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
 import "./EmployeeList.css";
-import _ from "lodash";
 import ReactPaginate from "react-paginate";
 
 //components
 import MailForm from "./MailForm";
 
-export default class EmployeeList extends React.Component {
+export default class EmployeeList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -63,10 +62,6 @@ export default class EmployeeList extends React.Component {
 			.slice(pagesVisited, pagesVisited + employeePerPage)
 			.map((employee, key) => (
 				<tr key={key}>
-					<td>{employee.id}</td>
-					<td>{employee.firstName}</td>
-					<td>{employee.lastName}</td>
-					<td>{employee.email}</td>
 					<td>
 						<div className="form-check">
 							<input
@@ -78,6 +73,10 @@ export default class EmployeeList extends React.Component {
 							/>
 						</div>
 					</td>
+					<td>{employee.id}</td>
+					<td>{employee.firstName}</td>
+					<td>{employee.lastName}</td>
+					<td>{employee.email}</td>
 				</tr>
 			));
 
@@ -93,11 +92,11 @@ export default class EmployeeList extends React.Component {
 						<table className="table table-hover">
 							<thead>
 								<tr>
+									<th></th>
 									<th>ID</th>
 									<th>First Name</th>
 									<th>Last Name</th>
 									<th>Email</th>
-									<th>Check</th>
 								</tr>
 							</thead>
 							<tbody>{displayEmployees}</tbody>

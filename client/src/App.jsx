@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import EmployeeList from "./components/EmployeeList";
 import Navbar from "./components/Navbar";
 
-const App = (props) => {
+const App = () => {
     return (
         <div className="App">
             <Navbar />

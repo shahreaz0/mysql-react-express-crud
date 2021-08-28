@@ -5,7 +5,7 @@ import "./Home.css";
 import EmployeeForm from "./EmployeeForm";
 import UploadCsvForm from "./UploadCsvForm";
 
-const Home = (props) => {
+const Home = () => {
 	return (
 		<div className="Home">
 			<div className="row m-0">

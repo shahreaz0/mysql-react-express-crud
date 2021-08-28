@@ -14,6 +14,7 @@ export default class EmployeeList extends Component {
 			pageNumber: 0,
 			allEmails: [],
 			checked: false,
+			isLoading: true,
 		};
 	}
 
@@ -22,9 +23,13 @@ export default class EmployeeList extends Component {
 			const { data } = await axios.get(
 				"http://localhost:3001/api/employees"
 			);
-			this.setState({
-				employees: data,
-			});
+			this.setState(
+				{
+					employees: data,
+					isLoading: true,
+				},
+				() => this.setState({ isLoading: false })
+			);
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,7 +58,7 @@ export default class EmployeeList extends Component {
 	};
 
 	render() {
-		const { employees, pageNumber, allEmails } = this.state;
+		const { employees, pageNumber, allEmails, isLoading } = this.state;
 		const employeePerPage = 5;
 		const pagesVisited = pageNumber * employeePerPage;
 		const pageCount = Math.ceil(employees.length / employeePerPage);
@@ -88,42 +93,53 @@ export default class EmployeeList extends Component {
 					</h1>
 				</div>
 				<div className="col d-flex flex-column margin">
-					<div className="table-responsive">
-						<table className="table table-hover">
-							<thead>
-								<tr>
-									<th></th>
-									<th>ID</th>
-									<th>First Name</th>
-									<th>Last Name</th>
-									<th>Email</th>
-								</tr>
-							</thead>
-							<tbody>{displayEmployees}</tbody>
-						</table>
-					</div>
-
-					{employees.length !== 0 && (
-						<ReactPaginate
-							previousLabel={"Prev"}
-							pageCount={pageCount}
-							onPageChange={this.changePage}
-							containerClassName={"paginationBttns"}
-							previousLinkClassName={"previousBttn"}
-							nextLinkClassName={"nextBttn"}
-							disabledClassName={"paginationDisabled"}
-							activeClassName={"paginationActive"}
-						/>
-					)}
-
-					{employees.length === 0 ? (
-						"No employees on the database."
-					) : allEmails.length === 0 ? (
-						<p className="mt-3">
-							No employee checked. Check for send email.
-						</p>
+					{isLoading ? (
+						<div className="loader">
+							<div className="lds-ripple">
+								<div></div>
+								<div></div>
+							</div>
+						</div>
 					) : (
-						<MailForm emails={allEmails} />
+						<div>
+							<div className="table-responsive">
+								<table className="table table-hover">
+									<thead>
+										<tr>
+											<th></th>
+											<th>ID</th>
+											<th>First Name</th>
+											<th>Last Name</th>
+											<th>Email</th>
+										</tr>
+									</thead>
+									<tbody>{displayEmployees}</tbody>
+								</table>
+							</div>
+
+							{employees.length !== 0 && (
+								<ReactPaginate
+									previousLabel={"Prev"}
+									pageCount={pageCount}
+									onPageChange={this.changePage}
+									containerClassName={"paginationBttns"}
+									previousLinkClassName={"previousBttn"}
+									nextLinkClassName={"nextBttn"}
+									disabledClassName={"paginationDisabled"}
+									activeClassName={"paginationActive"}
+								/>
+							)}
+
+							{employees.length === 0 ? (
+								"No employees on the database."
+							) : allEmails.length === 0 ? (
+								<p className="mt-3">
+									No employee checked. Check for send email.
+								</p>
+							) : (
+								<MailForm emails={allEmails} />
+							)}
+						</div>
 					)}
 				</div>
 			</div>

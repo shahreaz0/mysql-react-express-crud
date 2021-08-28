@@ -1,14 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed">
 			<div className="container-fluid">
-				<NavLink className="navbar-brand barlow-font-600" to="/">
+				<Link className="navbar-brand barlow-font-600" to="/">
 					WORKMAN
-				</NavLink>
+				</Link>
 				<button
 					className="navbar-toggler"
 					type="button"
@@ -25,12 +25,12 @@ const Navbar = () => {
 					id="navbarNavAltMarkup"
 				>
 					<div className="navbar-nav">
-						<NavLink className="nav-link" to="/">
+						<Link className="nav-link" to="/">
 							Home
-						</NavLink>
-						<NavLink className="nav-link" to="/employees">
+						</Link>
+						<Link className="nav-link" to="/employees">
 							All Employees
-						</NavLink>
+						</Link>
 					</div>
 				</div>
 			</div>

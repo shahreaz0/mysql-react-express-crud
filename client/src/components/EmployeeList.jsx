@@ -31,6 +31,7 @@ export default class EmployeeList extends Component {
 				() => this.setState({ isLoading: false })
 			);
 		} catch (error) {
+			alert("Error happned. Try Again. Click OK to continue");
 			console.log(error);
 		}
 	}

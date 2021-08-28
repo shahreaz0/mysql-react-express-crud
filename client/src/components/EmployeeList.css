@@ -11,8 +11,10 @@
 	margin-top: 0.5rem;
 	list-style: none;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	height: 40px;
+	padding-left: 0;
 }
 
 .paginationBttns a {
@@ -36,7 +38,7 @@
 }
 
 .paginationDisabled a {
-	pointer-events: none;
+	display: none;
 }
 
 /* Loader Spinner */
@@ -85,5 +87,19 @@
 @media only screen and (max-width: 910px) {
 	.EmployeeList .left-bar {
 		width: 100%;
+	}
+}
+
+@media only screen and (max-width: 560px) {
+	.margin {
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	.paginationBttns a {
+		margin: 4px;
+	}
+	.paginationBttns {
+		height: 80px;
 	}
 }

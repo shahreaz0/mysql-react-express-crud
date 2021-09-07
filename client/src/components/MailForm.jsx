@@ -10,7 +10,7 @@ const schema = yup.object().shape({
 	body: yup.string().required(),
 });
 
-const MailForm = (props) => {
+const MailForm = () => {
 	const onSubmitForm = async (data) => {
 		try {
 			await axios.post("http://localhost:3001/api/employees/sendmail", {

@@ -22,6 +22,10 @@ code {
    font-size: 0.8rem;
 }
 
+.filepond--root .filepond--credits {
+   display: none;
+}
+
 /* ================== Scrollbar Styling ================== */
 ::-webkit-scrollbar {
    background-color: #fff;

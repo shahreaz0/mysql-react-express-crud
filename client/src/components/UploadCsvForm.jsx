@@ -11,11 +11,11 @@ const UploadCsv = () => {
 			<FilePond
 				files={csvFile}
 				onupdatefiles={setCsvFile}
-				allowMultiple={false}
+				allowRevert={true}
 				server="http://localhost:3001/api/upload"
+				instantUpload={false}
 				name="csvFile"
 				labelFileProcessingError="Only CSV file is allowed"
-				labelFileProcessingComplete="Uploaded data to the database"
 				dropOnPage={true}
 				labelIdle='Drag & Drop .csv file or <span class="filepond--label-action">Browse</span>'
 			/>

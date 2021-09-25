@@ -10,7 +10,7 @@ const Employee = require("../models/employee");
 const fileUpload = require("../configs/multer");
 
 //routes
-router.get("/api/employees", async (req, res) => {
+router.get("/", async (req, res) => {
 	try {
 		const employees = await Employee.findAll();
 		res.send(employees);
@@ -19,7 +19,7 @@ router.get("/api/employees", async (req, res) => {
 	}
 });
 
-router.post("/api/employees", async (req, res) => {
+router.post("/", async (req, res) => {
 	try {
 		const { firstName, lastName, email } = req.body;
 

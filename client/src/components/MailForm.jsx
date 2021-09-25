@@ -1,8 +1,10 @@
 import React from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+// utils
+import fetch from "../utils/axios";
 
 // mail form validation schema
 const schema = yup.object().shape({
@@ -13,7 +15,7 @@ const schema = yup.object().shape({
 const MailForm = () => {
 	const onSubmitForm = async (data) => {
 		try {
-			await axios.post("http://localhost:3001/api/employees/sendmail", {
+			await fetch.post("/api/employees/sendmail", {
 				subject: data.subject,
 				body: data.body,
 				emails: props.emails,

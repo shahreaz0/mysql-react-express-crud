@@ -1,8 +1,10 @@
 import React from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+// utils
+import fetch from "../utils/axios";
 
 // form data
 const formInputData = [
@@ -21,7 +23,7 @@ const schema = yup.object().shape({
 const EmployeeForm = () => {
 	const onSubmit = async (data) => {
 		try {
-			await axios.post("http://localhost:3001/api/employees", {
+			await fetch.post("/api/employees", {
 				firstName: data.firstName,
 				lastName: data.lastName,
 				email: data.email,

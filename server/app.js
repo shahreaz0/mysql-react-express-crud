@@ -10,8 +10,8 @@ sequelize
 	.catch((error) => console.log(error));
 
 // add fake data to the database
-// addFakeData = require("./configs/faker");
-// addFakeData();
+addFakeData = require("./configs/faker");
+addFakeData();
 
 // express configs
 const app = express();

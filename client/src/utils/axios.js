@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fetch = axios.create({
-	baseURL: "http://localhost:3001",
+	baseURL: "https://workman-server.herokuapp.com",
 });
 
 export default fetch;

@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
 	}
 });
 
-router.post("/api/upload", fileUpload, async (req, res) => {
+router.post("/upload", fileUpload, async (req, res) => {
 	try {
 		const employees = [];
 
@@ -47,7 +47,7 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 		fs.createReadStream(path.join("uploads", req.file.filename))
 			.pipe(parseData)
 			.on("error", (error) => {
-				throw error.message;
+				// throw error.message;
 			})
 			.on("data", (row) => {
 				const newRow = {
@@ -78,6 +78,7 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 			});
 	} catch (error) {
 		fs.emptyDirSync(path.join("uploads"));
+		console.log(error);
 		const result = {
 			status: "fail",
 			filename: req.file.originalname,
@@ -87,7 +88,7 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 	}
 });
 
-router.post("/api/employees/sendmail", async (req, res) => {
+router.post("/sendmail", async (req, res) => {
 	const { subject, body, emails } = req.body;
 
 	if (!subject && !body) return res.send("No subject and body");

@@ -24,6 +24,7 @@ const EmployeeList = () => {
 			setEmployees(data);
 			setLoading(false);
 		} catch (error) {
+			console.log(error);
 			setLoading(false);
 			alert("Error happned. Try Again. Click OK to continue");
 		}
@@ -80,9 +81,11 @@ const EmployeeList = () => {
 			<div className="col d-flex flex-column margin">
 				{loading ? (
 					<div className="loader">
-						<div className="lds-ripple">
-							<div></div>
-							<div></div>
+						<div
+							className="spinner-border text-secondary"
+							role="status"
+						>
+							<span className="sr-only"></span>
 						</div>
 					</div>
 				) : (

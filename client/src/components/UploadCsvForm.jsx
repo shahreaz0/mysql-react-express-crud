@@ -11,9 +11,7 @@ const UploadCsv = () => {
 			<FilePond
 				files={csvFile}
 				onupdatefiles={setCsvFile}
-				allowRevert={true}
-				server="http://localhost:3001/api/upload"
-				instantUpload={false}
+				server="https://workman-server.herokuapp.com/api/employees/upload"
 				name="csvFile"
 				labelFileProcessingError="Only CSV file is allowed"
 				dropOnPage={true}

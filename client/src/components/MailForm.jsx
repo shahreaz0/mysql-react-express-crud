@@ -23,7 +23,6 @@ const MailForm = () => {
 			alert("successfully sent email. Click Ok to continue");
 		} catch (error) {
 			alert("Error happend. Try Again.");
-			console.log(error);
 		}
 	};
 

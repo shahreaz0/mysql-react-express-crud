@@ -6,24 +6,26 @@ import ReactPaginate from "react-paginate";
 //components
 import MailForm from "./MailForm";
 
+// utils
+import fetch from "../utils/axios";
+
 const EmployeeList = () => {
 	// states
 	const [employees, setEmployees] = useState([]);
 	const [emails, setEmails] = useState([]);
 	const [pageNumber, setPageNumber] = useState(0);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(async () => {
 		try {
-			const { data } = await axios.get(
-				"http://localhost:3001/api/employees"
-			);
+			setLoading(true);
 
+			const { data } = await fetch.get("/api/employees");
 			setEmployees(data);
 			setLoading(false);
 		} catch (error) {
+			setLoading(false);
 			alert("Error happned. Try Again. Click OK to continue");
-			console.log(error);
 		}
 	}, []);
 

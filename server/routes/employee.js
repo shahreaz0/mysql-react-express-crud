@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 		const employees = await Employee.findAll();
 		res.send(employees);
 	} catch (error) {
-		res.send(error);
+		res.status(500).send({ message: "Server error" });
 	}
 });
 
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
 		});
 		res.send(employee);
 	} catch (error) {
-		console.log(error);
+		res.status(500).send({ message: "Server error" });
 	}
 });
 
@@ -47,8 +47,7 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 		fs.createReadStream(path.join("uploads", req.file.filename))
 			.pipe(parseData)
 			.on("error", (error) => {
-				console.error(error);
-				// throw error.message;
+				throw error.message;
 			})
 			.on("data", (row) => {
 				const newRow = {
@@ -73,7 +72,7 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 						message: "Upload Successfully!",
 					};
 
-					res.json(result);
+					res.send(result);
 				});
 				fs.emptyDirSync(path.join("uploads"));
 			});
@@ -84,7 +83,7 @@ router.post("/api/upload", fileUpload, async (req, res) => {
 			filename: req.file.originalname,
 			message: "Upload Error! message = " + error.message,
 		};
-		res.json(result);
+		res.status(500).send(result);
 	}
 });
 
@@ -115,8 +114,7 @@ router.post("/api/employees/sendmail", async (req, res) => {
 		});
 		res.send("successfully send email");
 	} catch (error) {
-		console.log(error);
-		res.send(error);
+		res.status(500).send({ message: "Server error" });
 	}
 });
 
